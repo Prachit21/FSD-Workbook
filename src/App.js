@@ -1,29 +1,32 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React, { createContext, useContext, useState } from 'react';
 
-const Home = () => (
-  <div>
-    <h2>Home Page</h2>
-  </div>
-);
-
-const About = () => (
-  <div>
-    <h2>About Page</h2>
-  </div>
-);
+const ThemeContext = createContext();
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/about">About</Link>
-      </nav>
+  const [theme, setTheme] = useState('light');
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <Display />
+    </ThemeContext.Provider>
+  );
+}
+
+function Display() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return (
+    <div
+      style={{
+        background: theme === 'dark' ? '#333' : '#fff',
+        color: theme === 'dark' ? '#fff' : '#000'
+      }}
+    >
+      <p>Current Theme: {theme}</p>
+
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle
+      </button>
+    </div>
   );
 }
