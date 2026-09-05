@@ -1,32 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
-
-const ThemeContext = createContext();
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function App() {
-  const [theme, setTheme] = useState('light');
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
+      .then(res => setProducts(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <Display />
-    </ThemeContext.Provider>
-  );
-}
+    <div>
+      <h1>Products</h1>
 
-function Display() {
-  const { theme, setTheme } = useContext(ThemeContext);
-
-  return (
-    <div
-      style={{
-        background: theme === 'dark' ? '#333' : '#fff',
-        color: theme === 'dark' ? '#fff' : '#000'
-      }}
-    >
-      <p>Current Theme: {theme}</p>
-
-      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-        Toggle
-      </button>
+      {products.map(product => (
+        <div key={product._id}>
+          <h3>{product.title}</h3>
+          <p>Price: ₹{product.price}</p>
+        </div>
+      ))}
     </div>
   );
 }
