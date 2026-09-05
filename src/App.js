@@ -1,5 +1,5 @@
-import CounterApp from "./CounterApp";
+import FetchData from "./FetchData";
 
 export default function App() {
-  return <CounterApp />;
+  return <FetchData />;
 }
