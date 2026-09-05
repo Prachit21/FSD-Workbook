@@ -1,11 +1,5 @@
-import { UserCard } from "./UserCard";
+import CounterApp from "./CounterApp";
 
 export default function App() {
-  return (
-    <UserCard
-      name="Prachit"
-      role="Developer"
-      skills={["React", "JS"]}
-    />
-  );
+  return <CounterApp />;
 }
