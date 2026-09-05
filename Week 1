@@ -1,0 +1,10 @@
+//src/ App.jsx
+import React from 'react';
+function App() {
+  return (
+      <h1>My First Project</h1>
+      <p>React project setup completed successfully</p>
+    </div>
+  );
+}
+export default App;
